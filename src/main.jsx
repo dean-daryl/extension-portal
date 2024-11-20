@@ -7,7 +7,7 @@ import { Toaster } from 'sonner'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Toaster theme='dark' position='top-right' toastOptions={{  classNames: {
-      toast: 'bg-gray-800',
+      toast: 'bg-gray-800/60',
   }}}/>
     <App />
   </StrictMode>,

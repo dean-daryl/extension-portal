@@ -33,14 +33,31 @@ export function AuthModal({ isOpen, onClose, onModalSwitch, type }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === 'login') {
-      console.log('Login data:', loginData);
+    
       const response = await login(loginData);
-      if(response){
+      console.log(response);
+      if(response?.status == true){
         toast.success('Login successful');
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem("firstName", response.data.firstName);
+        localStorage.setItem("lastName", response.data.lastName);
+        
+        window.location.href = '/dashboard';
       }
+      else{
+        toast.error(response.message);
+      }
+
     } else {
-      console.log('Signup data:', signupData);
-      await signup(signupData);
+      const response = await signup(signupData);
+      if(response?.status == true){
+        toast.success('Signup successful');
+         onModalSwitch();
+      }
+      else{
+        toast.error(response.message);
+      }
+      
     }
   };
 
