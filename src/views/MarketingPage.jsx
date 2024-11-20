@@ -16,7 +16,7 @@ function MarketingPage() {
           <div className="text-center">
             <div className="flex justify-center items-center gap-2 mb-6">
               <Bot className="w-12 h-12 text-purple-400" />
-              <h1 className="text-4xl font-bold">TranscribeAI</h1>
+              <h1 className="text-4xl font-bold">SomaTek AI</h1>
             </div>
             <p className="text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
               Transform Any Content Into Text
@@ -30,10 +30,10 @@ function MarketingPage() {
                 Add to Chrome
               </button>
               <button 
-                onClick={openRegister}
+                onClick={openLogin}
                 className="border border-gray-700 hover:border-purple-500 px-8 py-3 rounded-lg transition-all"
               >
-                Get Start
+                Get Started
               </button>
             </div>
           </div>
@@ -140,8 +140,24 @@ function MarketingPage() {
         </div>
       </footer>
 
-      <AuthModal isOpen={isLoginOpen} onClose={() => { closeModals();}} type="login" />
-      <AuthModal isOpen={isRegisterOpen} onClose={() => { closeModals();}} type="register" />
+      <AuthModal
+       isOpen={isLoginOpen}
+        onClose={() => { closeModals();}}
+        onModalSwitch={() =>{
+            closeModals();
+            openRegister();
+        }}
+        type="login" />
+      <AuthModal
+       isOpen={isRegisterOpen}
+       onClose={() => {
+         closeModals();
+        }}
+        onModalSwitch ={() =>{
+            closeModals();
+            openLogin();
+        }}
+        type="register" />
     </div>
   );
 }

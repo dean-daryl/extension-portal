@@ -1,9 +1,49 @@
-import React from 'react';
-import { X, Github, Chrome } from 'lucide-react';
+import { Chrome, Github, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { login, signup } from '../api/authService';
+import { toast } from 'sonner';
 
+const loginDataInitial = {
+  username: '',
+  password: ''
+};
 
+const signupDataInitial = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: ''
+};
 
-export function AuthModal({ isOpen, onClose, type }) {
+export function AuthModal({ isOpen, onClose, onModalSwitch, type }) {
+  const [loginData, setLoginData] = useState(loginDataInitial);
+  const [signupData, setSignupData] = useState(signupDataInitial);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (type === 'login') {
+      if (name === 'email') {
+        setLoginData((prevData) => ({ ...prevData, username: value }));
+      }
+      setLoginData((prevData) => ({ ...prevData, [name]: value }));
+    } else {
+      setSignupData((prevData) => ({ ...prevData, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (type === 'login') {
+      console.log('Login data:', loginData);
+      const response = await login(loginData);
+      if(response){
+        toast.success('Login successful');
+      }
+    } else {
+      console.log('Signup data:', signupData);
+      await signup(signupData);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -20,22 +60,42 @@ export function AuthModal({ isOpen, onClose, type }) {
           {type === 'login' ? 'Welcome Back' : 'Create Account'}
         </h2>
 
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {type === 'register' && (
+          <div className='flex flex-col gap-5'>
             <input
               type="text"
-              placeholder="Full Name"
+              name="firstName"
+              placeholder="First Name"
+              value={signupData.firstName}
+              onChange={handleChange}
               className="w-full px-4 py-2 bg-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
             />
+            
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name "
+              value={signupData.lastName}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+            />
+          </div>
           )}
           <input
             type="email"
+            name="email"
             placeholder="Email"
+            value={type === 'login' ? loginData.email : signupData.email}
+            onChange={handleChange}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
+            value={type === 'login' ? loginData.password : signupData.password}
+            onChange={handleChange}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
           />
           
@@ -68,14 +128,14 @@ export function AuthModal({ isOpen, onClose, type }) {
           {type === 'login' ? (
             <>
               Don't have an account?{' '}
-              <button onClick={onClose} className="text-purple-400 hover:text-purple-300">
+              <button onClick={onModalSwitch} className="text-purple-400 hover:text-purple-300">
                 Sign up
               </button>
             </>
           ) : (
             <>
               Already have an account?{' '}
-              <button onClick={onClose} className="text-purple-400 hover:text-purple-300">
+              <button onClick={onModalSwitch} className="text-purple-400 hover:text-purple-300">
                 Sign in
               </button>
             </>

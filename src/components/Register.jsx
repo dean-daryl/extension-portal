@@ -6,7 +6,8 @@ import { signup } from "../api/authService";
 
 
 function Register({ onClose, onSignIn }) {
-  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -41,9 +42,17 @@ function Register({ onClose, onSignIn }) {
           <input
             type="text"
             className="input"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder="FullName"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            className="input"
+            placeholder="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
           />
           <input
