@@ -1,100 +1,124 @@
-import React from "react";
-import { fetchAnalyticsData } from "../api/analyticsService";
-import useFetch from "../api/useFetch";
+import React from 'react';
+import { Bot, BarChart3, Users, Activity } from 'lucide-react';
+import { fetchAnalyticsData } from '../api/analyticsService';
+import useFetch from '../api/useFetch';
+import Skeleton from './Skeleton';
+import AnalyticsReChart from './charts/AnalyticsRechart';
+import { getDateRange } from '../utils/dateUtils';
+import ThemeToggle from '../components/ThemeToggle';
 
-import Skeleton from "./Skeleton.jsx";
-import { AiOutlineRobot } from "react-icons/ai";
-import AnalyticsReChart from "./charts/AnalyticsRechart.jsx";
-import { getDateRange } from "../utils/dateUtils.js";
-
+const StatCard = ({ title, value, icon: Icon, trend }) => (
+  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+    <div className="flex justify-between items-center">
+      <div>
+        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
+        <h3 className="text-2xl font-semibold mt-2 text-gray-900 dark:text-white">{value}</h3>
+      </div>
+      <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+        <Icon className="w-6 h-6 text-blue-500 dark:text-blue-400" />
+      </div>
+    </div>
+    {trend && (
+      <div className="mt-4 flex items-center">
+        <Activity className="w-4 h-4 text-green-500 mr-1" />
+        <span className="text-sm text-green-500">{trend}</span>
+      </div>
+    )}
+  </div>
+);
 
 const Home = () => {
-  const ranges = ["today", "lastWeek", "thisMonth", "thisQuarter"];
-  const firstname = localStorage.getItem("firstname") ?? "";
+  const ranges = ['today', 'lastWeek', 'thisMonth', 'thisQuarter'];
+  const firstname = localStorage.getItem('firstName') ?? '';
 
   const fetchDataForRange = (range) => {
     const { startDate, endDate } = getDateRange(range);
-    return useFetch(() =>
-      fetchAnalyticsData(startDate, endDate)
-    );
+    return useFetch(() => fetchAnalyticsData(startDate, endDate));
   };
 
-  const results = ranges.map((range) => fetchDataForRange(range));
+  const fetchUserAnalytics = () => {
+    const userCount = useFetch(() => fetchAnalyticsData());
+  }
 
+  const results = ranges.map((range) => fetchDataForRange(range));
   const loading = results.some((result) => result.loading);
   const error = results.some((result) => result.error);
 
   if (loading) {
     return (
-      <div className="p-4 md:p-20 lg:p-20">
-        <div className="flex flex-col pt-10 md:flex-row justify-between items-center border-t border-b border-gray-300 px-3 py-5 rounded-t-md">
+      <div className="p-6 lg:p-8 space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <Skeleton width="200px" height="30px" />
-          <div className="flex gap-3 sm:gap-5 items-center">
-            <Skeleton width="30px" height="30px" borderRadius="50%" />
-            <Skeleton width="30px" height="30px" borderRadius="50%" />
-            <Skeleton width="30px" height="30px" borderRadius="50%" />
-          </div>
+          <Skeleton width="120px" height="40px" />
         </div>
-
-        <div className="p-4 sm:p-5 mr-0 sm:mr-3 mb-0">
-          <div className="flex justify-center sm:justify-start">
-            <Skeleton width="100%" height="48px" borderRadius="8px" />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} height="120px" />
+          ))}
         </div>
-
-        {/* Analytics Section */}
-        <div className="p-4 sm:p-5 flex flex-col gap-4">
-          <h2 className="text-lg px-4 py-4 border-b border-gray-300">
-            <Skeleton width="150px" height="20px" />
-          </h2>
-          <div className="flex justify-center">
-            <Skeleton width="100%" height="300px" />
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {[1, 2].map((i) => (
+            <Skeleton key={i} height="400px" />
+          ))}
         </div>
       </div>
     );
   }
 
+  const stats = [
+    { title: 'Total Users', value: '2,543', icon: Users, trend: '+12.5% from last month' },
+    { title: 'Active Sessions', value: '1,234', icon: Activity, trend: '+8.2% from last week' },
+    { title: 'Conversion Rate', value: '3.6%', icon: BarChart3, trend: '+2.1% from yesterday' },
+    { title: 'AI Interactions', value: '10,432', icon: Bot, trend: '+15.3% from last quarter' },
+  ];
+
   return (
-    <>
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 rounded-xs shadow-lg flex items-center justify-center">
-        <AiOutlineRobot size={50} className="mr-3" />
-        <h1 className="text-2xl font-medium">SomaTek AI</h1>
-      </div>
-      <div className="p-8 md:p-20 lg:p-20">
-        <div className="flex flex-col pt-10 md:flex-row justify-between items-center border-b border-gray-300 px-3 py-5 rounded-t-md">
-          <h1 className="text-2xl sm:text-3xl mb-4 sm:mb-0">
-            Welcome back {firstname} 👋
-          </h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+      <div className="p-6 lg:p-8 space-y-8">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Bot className="w-10 h-10 text-purple-500" />
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Welcome back {firstname} 👋
+            </h1>
+          </div>
+          <ThemeToggle />
         </div>
 
-        {/* Analytics Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <StatCard key={index} {...stat} />
+          ))}
+        </div>
+
+        {/* Analytics Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {ranges.map((range, index) => {
             const data = results[index].data || [];
             const transformedData = Object.entries(data).map(([keyword, count]) => ({
-                    keyword,
-                    count,
-                  }));
+              keyword,
+              count,
+            }));
 
             return (
               <div
                 key={range}
-                className="p-4 sm:p-5 flex flex-col gap-4 mb-6 border border-gray-300 rounded-lg"
+                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
               >
-                <h2 className="text-lg px-4 py-4 border-b border-gray-300 capitalize">
-                  {range.charAt(0).toUpperCase() +
-                    range.slice(1).replace(/([A-Z])/g, " $1")}{" "}
-                  Analytics
+                <h2 className="text-lg font-semibold mb-6 text-gray-900 dark:text-white capitalize">
+                  {range.replace(/([A-Z])/g, ' $1')} Analytics
                 </h2>
-
-                <AnalyticsReChart data={transformedData} />
+                <div className="overflow-hidden">
+                  <AnalyticsReChart data={transformedData} />
+                </div>
               </div>
             );
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
