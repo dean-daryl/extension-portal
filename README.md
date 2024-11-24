@@ -1,8 +1,40 @@
-# React + Vite
+# Frontend App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React-based frontend application built using Vite for fast development and bundling.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Analytics**: Showcases data from an a browser extension and displays them on a dashboard using Recharts.
+
+## Tech Stack
+
+- React
+- Vite
+- Tailwind CSS (optional)
+- npm (Package Manager)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+2. Install dependencies:
+ 
+   ```bash
+    npm install
+    Start the development server:
+
+3. Run development server
+   ```bash
+    npm run dev
+ The app will be accessible at http://localhost:5173.
+
