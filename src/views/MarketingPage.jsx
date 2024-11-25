@@ -71,7 +71,7 @@ function MarketingPage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-gray-800/30 p-8 rounded-2xl border border-gray-700/50">
               <img
-                src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1712245833905-5057a4245271?q=80&w=3139&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="AI Technology"
                 className="w-full h-48 object-cover rounded-lg mb-6"
               />
@@ -92,7 +92,7 @@ function MarketingPage() {
             </div>
             <div className="bg-gray-800/30 p-8 rounded-2xl border border-gray-700/50">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1648301033733-44554c74ec50?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Productivity"
                 className="w-full h-48 object-cover rounded-lg mb-6"
               />

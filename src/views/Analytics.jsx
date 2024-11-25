@@ -12,7 +12,7 @@ const StatCard = ({ title, value, icon: Icon, trend }) => (
     <div className="flex justify-between items-center">
       <div>
         <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
-        <h3 className="text-2xl font-semibold mt-2 text-gray-900 dark:text-white">{value}</h3>
+        <h3 className="text-2xl font-semibold mt-2 text-gray-900 dark:text-white">-</h3>
       </div>
       <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
         <Icon className="w-6 h-6 text-blue-500 dark:text-blue-400" />
@@ -21,7 +21,7 @@ const StatCard = ({ title, value, icon: Icon, trend }) => (
     {trend && (
       <div className="mt-4 flex items-center">
         <Activity className="w-4 h-4 text-green-500 mr-1" />
-        <span className="text-sm text-green-500">{trend}</span>
+        <span className="text-sm text-green-500">-</span>
       </div>
     )}
   </div>

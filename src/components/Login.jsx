@@ -14,7 +14,6 @@ function Login({ onClose, onSignUp }) {
     e.preventDefault();
     try {
       const response = await login({ username: email, password });
-      localStorage.setItem('token', response.token);
       onClose();
       window.location.href = '/dashboard';
     } catch (err) {

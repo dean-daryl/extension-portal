@@ -18,7 +18,7 @@ function RecentActivities() {
         sections.map(async (section) => {
           const { startDate, endDate } = getDateRange(section.dateRange);
           const activities = await getRecentActivity(
-            '2ec00c00-3d0a-4124-9060-69847a6287ca',
+            '565f4ee2-0729-450c-9bf5-5b382fe82ea6',
             startDate,
             endDate,
             1,

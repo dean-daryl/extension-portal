@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Bot, CircleUserRound, PanelRightClose, User, X } from "lucide-react";
+import { Bot, CircleUserRound, PanelRightClose, Settings, User, X } from "lucide-react";
 import RecentActivities from "./recent-activity/RecentActivities.jsx";
 import sidebar from "../../public/assets/sidebar.svg";
 
 function SideBar({ isOpen, setIsOpen }) {
   const firstName = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName") ?? "";
-
+  const role = localStorage.getItem("role");
   return (
     <>
       <div
@@ -41,7 +41,19 @@ function SideBar({ isOpen, setIsOpen }) {
                 />
               </div>
               <div className="py-4 px-4 bg-gray-900">
-                <RecentActivities />
+                {role === "STUDENT" ? <RecentActivities /> : 
+                <div className="py-4">
+                  <Link to="/users" className="flex items-center py-2 px-4 hover:bg-gray-800 rounded-md">
+                    <User className="w-5 h-5 text-gray-400 mr-3" />
+                    <span className="text-sm font-medium text-gray-100">Users</span>
+                  </Link>
+                  <Link to="/settings" className="flex items-center py-2 px-4 hover:bg-gray-800 rounded-md">
+                    <Settings className="w-5 h-5 text-gray-400 mr-3" />
+                    <span className="text-sm font-medium text-gray-100">Settings</span>
+                  </Link>
+                </div>
+                }
+
               </div>
             </div>
             <div className="mt-auto">

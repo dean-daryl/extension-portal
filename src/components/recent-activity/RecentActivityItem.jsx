@@ -9,7 +9,6 @@ function RecentActivityItem({ activity }) {
     .replace(/^"|"$/g, '')
     .slice(0, 26) + (activity.title.length > 30 ? '...' : '');
 
-    console.log(activity)
   return (
     <Link to={`/dashboard/activity/${activity.id}`}>
       <div className="flex items-center gap-3 px-2 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-800/10 dark:hover:bg-gray-700/50">

@@ -34,6 +34,7 @@ function ActivityDetails() {
     }
 
     if (conversationData.conversationType === 'IMAGE' && key.includes('prompt')) {
+      console.log(value)
       return (
         <div className="flex justify-center max-w-2xl mx-auto">
           <img

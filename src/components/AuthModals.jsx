@@ -12,7 +12,8 @@ const signupDataInitial = {
   firstName: '',
   lastName: '',
   email: '',
-  password: ''
+  password: '',
+  role: ''
 };
 
 export function AuthModal({ isOpen, onClose, onModalSwitch, type }) {
@@ -33,14 +34,13 @@ export function AuthModal({ isOpen, onClose, onModalSwitch, type }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === 'login') {
-    
       const response = await login(loginData);
-      console.log(response);
       if(response?.status == true){
         toast.success('Login successful');
         localStorage.setItem('token', response.data.token);
         localStorage.setItem("firstName", response.data.firstName);
         localStorage.setItem("lastName", response.data.lastName);
+        localStorage.setItem("role", response.data.role); 
         
         window.location.href = '/dashboard';
       }
@@ -97,7 +97,16 @@ export function AuthModal({ isOpen, onClose, onModalSwitch, type }) {
               onChange={handleChange}
               className="w-full px-4 py-2 bg-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
             />
+             <input
+              type="text"
+              name="role"
+              placeholder="Role i.e Student, Institution"
+              value={signupData.role}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+            />
           </div>
+          
           )}
           <input
             type="email"
